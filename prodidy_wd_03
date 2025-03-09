@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FashionFlick</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            scroll-behavior: smooth;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 999;
+        }
+
+        header h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5em;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        header nav {
+            margin-top: 15px;
+        }
+
+        header nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 1.1em;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        header nav a:hover {
+            color: #ff4b2b;
+            transform: scale(1.1);
+        }
+
+        section {
+            padding: 80px 20px;
+            margin-top: 60px;
+            border-radius: 8px;
+        }
+
+        #home {
+            background: url('https://via.placeholder.com/1600x800') no-repeat center center/cover;
+            color: #fff;
+            text-align: center;
+            padding: 150px 20px;
+        }
+
+        #home h2 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        #home p {
+            font-size: 1.2em;
+            max-width: 700px;
+            margin: 0 auto;
+            margin-bottom: 20px;
+        }
+
+        #shop {
+            background-color: #fff;
+        }
+
+        #shop h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #ff4b2b;
+        }
+
+        .product-list {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .product-item {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-item img {
+            width: 100%;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-item img:hover {
+            transform: scale(1.1);
+        }
+
+        .product-item h3 {
+            margin: 20px 0;
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        .product-item button {
+            background-color: #ff4b2b;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: background-color 0.3s ease;
+            font-size: 1.1em;
+        }
+
+        .product-item button:hover {
+            background-color: #ff416c;
+        }
+
+        #about {
+            background-color: #f7f7f7;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        #about h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        #contact {
+            background-color: #fff;
+            padding: 50px 20px;
+        }
+
+        #contact h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #ff4b2b;
+        }
+
+        #contact form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        #contact label {
+            display: block;
+            margin: 10px 0 5px;
+            font-size: 1.1em;
+        }
+
+        #contact input, #contact textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1.1em;
+            transition: border 0.3s ease;
+        }
+
+        #contact input:focus, #contact textarea:focus {
+            border: 1px solid #ff4b2b;
+            outline: none;
+        }
+
+        #contact button {
+            background-color: #ff4b2b;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2em;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        #contact button:hover {
+            background-color: #ff416c;
+        }
+
+        #checkout {
+            background-color: #f4f4f4;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        #checkout h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #ff4b2b;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        /* Payment Form */
+        .payment-page {
+            display: none;
+            background-color: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .payment-page .form-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .payment-page input {
+            padding: 12px;
+            margin-bottom: 20px;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .payment-page button {
+            background-color: #ff4b2b;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .payment-page button:hover {
+            background-color: #ff416c;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 998;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+    <div class="logo">
+        <h1>FashionFlick</h1>
+    </div>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#shop">Shop</a>
+        <a href="#about">About Us</a>
+        <a href="#contact">Contact</a>
+        <a href="#checkout">Checkout</a>
+    </nav>
+</header>
+
+<!-- Home Section -->
+<section id="home">
+    <h2>Welcome to FashionFlick!</h2>
+    <p>Your ultimate destination for trendy and stylish fashion. Explore our exclusive collection of fashion-forward clothing and accessories. We offer the latest in comfortable and fashionable apparel for all your needs.</p>
+</section>
+
+<!-- Shop Section -->
+<section id="shop">
+    <h2>Our Collection</h2>
+    <div class="product-list">
+        <div class="product-item">
+            <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcS4UeKpioL0ET_e0QWWpZufcFnIXMH-LSpXxIa49z4BztaBId9t4fZb_6ovzwpysWH4umJKwReLaL_kM8jhnMXWozw3Aj4hReK3933n6Bhs2WI8OPAVvJu1Cw" alt="Oversized T-shirt">
+            <h3>Oversized T-shirt</h3>
+            <p>Elevate your style with our oversized cotton T-shirt, crafted from high-quality cotton in a chic black hue.</p>
+            <input type="radio" id="small" name="shirt_size" value="small"><label for="small">Small</label>
+            <input type="radio" id="medium" name="shirt_size" value="medium"><label for="medium">Medium</label>
+            <input type="radio" id="large" name="shirt_size" value="large"><label for="large">Large</label>
+            <button onclick="addToCart('Oversized T-shirt', 8.99)">Add to Cart</button>
+        </div>
+        <div class="product-item">
+            <img src="https://veirdo.in/cdn/shop/files/18_5.jpg?v=1723283778" alt="Oversized Tees">
+            <h3>Oversized Tees</h3>
+            <p>Oversized T-shirts are stylish and attractive. Give a Unique Collection to your wardrobe casuals.</p>
+            <input type="radio" id="small" name="shirt_size" value="small"><label for="small">Small</label>
+            <input type="radio" id="medium" name="shirt_size" value="medium"><label for="medium">Medium</label>
+            <input type="radio" id="large" name="shirt_size" value="large"><label for="large">Large</label>
+            <button onclick="addToCart('Oversized Tees', 12.99)">Add to Cart</button>
+        </div>
+    </div>
+</section>
+
+<!-- Checkout Section -->
+<section id="checkout">
+    <h2>Checkout</h2>
+    <div id="cart">
+        <h3>Your Cart</h3>
+        <ul id="cart-items"></ul>
+        <p id="total">Total: $0.00</p>
+        <button onclick="proceedToPayment()">Proceed to Payment</button>
+    </div>
+</section>
+
+<!-- Payment Page -->
+<div class="overlay" id="payment-overlay"></div>
+<div class="payment-page" id="payment-page">
+    <div class="form-container">
+        <h3>Payment Information</h3>
+        <input type="text" placeholder="Card Number" id="card-number">
+        <input type="text" placeholder="Expiry Date (MM/YY)" id="expiry-date">
+        <input type="text" placeholder="CVV" id="cvv">
+        <button onclick="completePayment()">Pay Now</button>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2025 FashionFlick</p>
+</footer>
+
+<script>
+// Cart system
+let cart = [];
+
+function addToCart(productName, productPrice) {
+    cart.push({ name: productName, price: productPrice });
+    updateCart();
+}
+
+function updateCart() {
+    let cartItems = document.getElementById('cart-items');
+    cartItems.innerHTML = ''; // Clear previous items
+    let total = 0;
+
+    cart.forEach(item => {
+        let li = document.createElement('li');
+        li.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+        cartItems.appendChild(li);
+        total += item.price;
+    });
+
+    document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
+}
+
+function proceedToPayment() {
+    document.getElementById('payment-overlay').style.display = 'block';
+    document.getElementById('payment-page').style.display = 'flex';
+}
+
+function completePayment() {
+    alert('Payment successful!');
+    cart = []; // Clear cart
+    updateCart();
+    document.getElementById('payment-overlay').style.display = 'none';
+    document.getElementById('payment-page').style.display = 'none';
+}
+</script>
+
+</body>
+</html>
